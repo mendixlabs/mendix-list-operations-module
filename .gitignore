@@ -5,8 +5,8 @@
 /.mendix-cache/
 /.classpath
 /.project
-/sortorder.mpr.bak
-/sortorder.mpr.lock
+/*.mpr.bak
+/*.mpr.lock
 /modeler-merge-marker
 /project-settings.user.json
 /javasource/*/proxies/
@@ -16,6 +16,8 @@
 /nativemobile/builds/
 /.gradle/
 /.idea/
+/.svn/
+/._.DS_Store
 
 
 # Ignore Gradle project-specific cache directory
