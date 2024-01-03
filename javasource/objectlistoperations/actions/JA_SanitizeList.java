@@ -13,16 +13,14 @@ import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import objectlistoperations.impl.Sorting_V1;
-import objectlistoperations.impl.SortingValidation_V1;
-import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
+import objectlistoperations.impl.Sorting;
+import objectlistoperations.impl.SortingValidation;
+import objectlistoperations.impl.SortingValidation.ValidationFeedback;
 
 /**
  * This java action takes a list of objects and 'santizes' their data for sorting. All logic is applied to the input attribute. which should be used to determine the sorting order.
  * The objects are ordered based on any exisiting values (nulls are placed at the end of the list). Then, the value of SortOrderAttribute is set to 1 for the first object, 2 for the second, etc..
  * The result is a clean set of values for the list, meaning they are now in a format which can be used by the other sorting actions.
- * 
- * Deprecated. Please use JA_List_SanitizeSorting instead
  */
 public class JA_SanitizeList extends CustomJavaAction<java.lang.Void>
 {
@@ -49,13 +47,13 @@ public class JA_SanitizeList extends CustomJavaAction<java.lang.Void>
 		String SortAttributeName = this.SortAttributeName;
 		Boolean Commit = this.Commit;
 		
-		ValidationFeedback Valid = SortingValidation_V1.performSanitizingValidation(ListToSanitize, context, SortAttributeName, Commit);
+		ValidationFeedback Valid = SortingValidation.performSanitizingValidation(ListToSanitize, context, SortAttributeName, Commit);
 		
 		
-		if (Valid.Valid == true) {
-		Sorting_V1.listSanitize(ListToSanitize, context, SortAttributeName, Commit);
+		if(Valid.Valid == true) {
+		Sorting.listSanitize(ListToSanitize, context, SortAttributeName, Commit);
 		
-		} else {
+		}else{
 			throw new Exception(Valid.ValidationMessage);
 		}
 		

@@ -1,5 +1,6 @@
 package objectlistoperations.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mendix.systemwideinterfaces.core.IContext;
@@ -9,159 +10,185 @@ import com.mendix.systemwideinterfaces.core.meta.IMetaPrimitive.PrimitiveType;
 import objectlistoperations.proxies.Enum_SortingAction;
 
 public final class SortingValidation {
-	public static class ValidationFeedback {
-		public PrimitiveType MxPrimitiveType = PrimitiveType.Integer;
-        public Boolean Valid = true;
-        public String ValidationMessage;
-    }
-
-    private static boolean isActionDefined(Enum_SortingAction action) {
-        return action != null;
-    }
-
-    private static boolean isSortAttributeNameValid(IMendixObject mxObject, String sortAttributeName, IContext context) {
-    	if (!mxObject.hasMember(sortAttributeName) || mxObject.getMember(context, sortAttributeName).getValue(context) == null) {
-    		return false;
-    	}
-    	PrimitiveType primitiveType = mxObject.getMetaObject().getMetaPrimitive(sortAttributeName).getType();
-        return primitiveType == PrimitiveType.Integer || primitiveType == PrimitiveType.Long;
-    }
-
-    private static boolean isListAttributeValid(List<IMendixObject> list, String attributeName, IContext context) {
-        return list.stream().allMatch(o -> isSortAttributeNameValid(o, attributeName, context));
-    }
-
-    public static ValidationFeedback performSortingActionValidation(List<IMendixObject> providedList, IMendixObject objectToChange, IContext context, String sortAttributeName, Enum_SortingAction action, boolean commit) throws Exception {
-        ValidationFeedback feedback = new ValidationFeedback();
-        StringBuilder message = new StringBuilder("The following errors were found: ");
-
-        if (!Misc.isBooleanDefined(commit)) {
-            message.append("commit boolean is undefined; ");
-            feedback.Valid = false;
-        }
-
-        if (!isActionDefined(action)) {
-            message.append("action is undefined; ");
-            feedback.Valid = false;
-        }
-
-        if (!Misc.isStringNotEmpty(sortAttributeName)) {
-            message.append("sorting attribute has not been provided; ");
-            feedback.Valid = false;
-        }
-
-        if (objectToChange == null) {
-            message.append("an object to sort has not been provided; ");
-            feedback.Valid = false;
-        } else if (!isSortAttributeNameValid(objectToChange, sortAttributeName, context)) {
-        	message.append("the provided object does not have attribute ")
-		           .append(sortAttributeName)
-		           .append(" or that attribute is not an integer or long; ");
-            feedback.Valid = false;
-        } else if (providedList != null && !providedList.isEmpty() && providedList.size() >= 2) {
-        	if (Sorting.getObjectFromList(objectToChange, providedList) == null) {
-                message.append("the provided list does not contain the object to apply changes to; ");
-                feedback.Valid = false;
-        	}
-            if (!isListAttributeValid(providedList, sortAttributeName, context)) {
-                message.append("the provided list contains at least one object which does not have the attribute ")
-                       .append(sortAttributeName)
-                       .append(" or that attribute is not an integer or long; ");
-                feedback.Valid = false;
-            }
-        } else {
-            message.append("there are not enough objects in the provided list to provide a sorting operation; ");
-            feedback.Valid = false;
-        }
-
-        feedback.ValidationMessage = message.toString();
-        return feedback;
-    }
-		
-    public static ValidationFeedback performSanitizingValidation(List<IMendixObject> providedList, IContext context, String sortAttributeName, boolean commit, Long startingIndex) throws Exception {
-        ValidationFeedback feedback = new ValidationFeedback();
-        StringBuilder message = new StringBuilder("The following errors were found: ");
-
-        if (!Misc.isBooleanDefined(commit)) {
-            message.append("commit boolean is undefined; ");
-            feedback.Valid = false;
-        }
-
-        if (startingIndex == null) {
-            message.append("starting index parameter has not been specified; ");
-            feedback.Valid = false;
-        }
-
-        if (!Misc.isStringNotEmpty(sortAttributeName)) {
-            message.append("sorting attribute has not been provided; ");
-            feedback.Valid = false;
-        }
-
-        if (providedList != null && !providedList.isEmpty()) {
-            if (!isListAttributeValid(providedList, sortAttributeName, context)) {
-                message.append("the provided list contains at least one object which does not have the attribute ")
-                       .append(sortAttributeName)
-                       .append(" or where that attribute is not an integer or long; ");
-                feedback.Valid = false;
-            }
-        }
-
-        feedback.ValidationMessage = message.toString();
-        return feedback;
-    }
+	public static class ValidationFeedback{
+		public Boolean Valid;
+		public String ValidationMessage;
+	}
 	
-	public static ValidationFeedback performPositionValidation(List<IMendixObject> providedList, IMendixObject objectToChange, IContext context, String sortAttributeName, Long newPositionValue, boolean commit) throws Exception {
-        ValidationFeedback feedback = new ValidationFeedback();
-        StringBuilder message = new StringBuilder("The following errors were found: ");
-
-        if (!Misc.isBooleanDefined(commit)) {
-            message.append("commit boolean is undefined; ");
-            feedback.Valid = false;
-        }
-
-        if (!Misc.isStringNotEmpty(sortAttributeName)) {
-            message.append("sorting attribute has not been provided; ");
-            feedback.Valid = false;
-        }
-
-		if (newPositionValue == null) {
-            message.append("new index has not been provided; ");
-            feedback.Valid = false;
+	public static ValidationFeedback performValidation(List<IMendixObject> AffectedList, IMendixObject ObjectToChange, IContext context, String SortAttributeName, Enum_SortingAction Action, boolean Commit) throws Exception{
+		// Validations
+		Boolean Valid = true;
+		String ExceptionMessage = "The following errors were found: ";
+		
+		// Commit value is not empty (this should never be possible as Booleans must always be True or False)
+		if(Commit != true && Commit != false){
+			ExceptionMessage += "commit boolean is undefined; ";
+			Valid = false;
 		}
-
+		
+		//Action specified
+		if(Action == null){
+			ExceptionMessage += "action is undefined; ";
+			Valid = false;
+		}
+			
 		// Object is given
-        if (objectToChange == null) {
-            message.append("an object to sort has not been provided; ");
-            feedback.Valid = false;
-        } else if (!isSortAttributeNameValid(objectToChange, sortAttributeName, context)) {
-        	message.append("the provided object does not have attribute ")
-		           .append(sortAttributeName)
-		           .append(" or that attribute is not an integer or long; ");
-            feedback.Valid = false;
-        } else if (providedList != null && !providedList.isEmpty() && providedList.size() >= 2) {
-        	feedback.MxPrimitiveType = objectToChange.getMetaObject().getMetaPrimitive(sortAttributeName).getType();
-        	if (Sorting.getObjectFromList(objectToChange, providedList) == null) {
-                message.append("the provided list does not contain the object to apply changes to; ");
-                feedback.Valid = false;
-        	}
-            if (!isListAttributeValid(providedList, sortAttributeName, context)) {
-                message.append("the provided list contains at least one object which does not have the attribute ")
-                       .append(sortAttributeName)
-                       .append(" or that attribute is not an integer or long; ");
-                feedback.Valid = false;
-            } else {
-                Long[] minMax = Misc.getMinMaxSortingAttribute(providedList, sortAttributeName, context, feedback.MxPrimitiveType);
-    			if (newPositionValue != null && !Misc.isValueBetweenMinMax(newPositionValue, minMax)) {
-                    message.append("the new position lies outside of the positions of the object inside the provided list; ");
-                    feedback.Valid = false;
-            }
-			}
-        } else {
-            message.append("there are not enough objects in the provided list to provide a sorting operation; ");
-            feedback.Valid = false;
-        }
+		if(ObjectToChange == null){
+			ExceptionMessage += "an object to sort has not been provided; ";
+			Valid = false;
+		}else{
+			// SortAttributeName is specified	
+			if(SortAttributeName == null){
+				ExceptionMessage += "a sorting attribute has not been specified; ";
+				Valid = false;
+			}else {
+				// Provided SortAttributeName is an attribute of the affected object
+				if(ObjectToChange.hasMember(SortAttributeName) == false) {
+					ExceptionMessage += "the object to sort provided does not have an attribute "+SortAttributeName+"; ";
+					Valid = false;
+				}else{
+					// Sort attribute has a value
+					if(ObjectToChange.getMember(context, SortAttributeName).getValue(context) == null) {
+						ExceptionMessage += "the object to sort provided does not already have a value for its sorting attribute; ";
+						Valid = false;
+					}else{
+						// Sort attribute is of type integer
+						//if(ObjectToChange.getMember(context, SortAttributeName).getValue(context).getClass() != java.lang.Integer.class) {
+						if(ObjectToChange.getMetaObject().getMetaPrimitive(SortAttributeName).getType() != PrimitiveType.Integer) {
+							ExceptionMessage += "the attribute specified, "+SortAttributeName+", is not an integer; ";
+							Valid = false;
+						}
+					}
+				}
+				// Affected list has at least 2 objects
+				if(AffectedList.size() < 2) { 
+					ExceptionMessage += "there are not enough objects in the provided list to provide a sorting operation; ";
+					Valid = false;
+				}else {
 
-        feedback.ValidationMessage = message.toString();
-        return feedback;
+					if(Sorting.getObjectFromList(ObjectToChange,AffectedList) == null){
+						ExceptionMessage += "the provided list does not contain the object to apply changes to; ";
+						Valid = false;
+					}
+					
+					List<IMendixObject> ValidList = new ArrayList<IMendixObject>(AffectedList); // duplicate the input list
+					// Assume all objects are valid. Then, remove any which do not have the specified attribute or that do but the attribute is not an integer
+					ValidList.removeIf(o -> (o.hasMember(SortAttributeName) == false) || o.getMetaObject().getMetaPrimitive(SortAttributeName).getType() != PrimitiveType.Integer || o.getValue(context, SortAttributeName) == null); // remove any objects which have the sort attribute or 
+					if(ValidList.size() != AffectedList.size()) { //if not all objects are valid
+						ExceptionMessage += "the provided list contains at least 1 object which does not have an attribute "+SortAttributeName+"; where this attribute is not an integer or where the attribute currently has an empty value; ";
+						Valid = false;
+					}
+				}
+			}
+		}
+		
+		ValidationFeedback ValidationFeedback = new ValidationFeedback();
+		ValidationFeedback.ValidationMessage = ExceptionMessage;
+		ValidationFeedback.Valid = Valid;
+		
+		return ValidationFeedback;
+	}
+		
+	public static ValidationFeedback performSanitizingValidation(List<IMendixObject> AffectedList, IContext context, String SortAttributeName, boolean Commit) throws Exception{
+		// Validations
+		Boolean Valid = true;
+		String ExceptionMessage = "The following errors were found: ";
+		
+		// Commit value is not empty (this should never be possible as Booleans must always be True or False)
+		if(Commit != true && Commit != false){
+			ExceptionMessage += "commit boolean is undefined; ";
+			Valid = false;
+		}
+		
+		// Assume all objects are valid. Then, remove any which do not have the specified attribute or that do but the attribute is not an integer
+		List<IMendixObject> ValidList = new ArrayList<IMendixObject>(AffectedList); // duplicate the input list
+		ValidList.removeIf(o -> (o.hasMember(SortAttributeName) == false) || o.getMetaObject().getMetaPrimitive(SortAttributeName).getType() != PrimitiveType.Integer); // remove any objects which have the sort attribute or 
+		if(ValidList.size() != AffectedList.size()) { //if not all objects are valid
+			ExceptionMessage += "the provided list contains at least 1 object which does not have an attribute "+SortAttributeName+" or where that attribute is not an integer ; ";
+			Valid = false;
+		}
+		
+		ValidationFeedback ValidationFeedback = new ValidationFeedback();
+		ValidationFeedback.ValidationMessage = ExceptionMessage;
+		ValidationFeedback.Valid = Valid;
+		
+		return ValidationFeedback;
+	}
+	
+	public static ValidationFeedback performIndexValidation(List<IMendixObject> AffectedList, IMendixObject ObjectToChange, IContext context, String SortAttributeName, Integer Index, boolean Commit) throws Exception{
+		// Validations
+		Boolean Valid = true;
+		String ExceptionMessage = "The following errors were found: ";
+		
+		// Commit value is not empty (this should never be possible as Booleans must always be True or False)
+		if(Commit != true && Commit != false){
+			ExceptionMessage += "commit boolean is undefined; ";
+			Valid = false;
+		}
+			
+		// Object is given
+		if(ObjectToChange == null){
+			ExceptionMessage += "an object to sort has not been provided; ";
+			Valid = false;
+		}else{
+			// SortAttributeName is specified	
+			if(SortAttributeName == null){
+				ExceptionMessage += "a sorting attribute has not been specified; ";
+				Valid = false;
+			}else {
+				// Provided SortAttributeName is an attribute of the affected object
+				if(ObjectToChange.hasMember(SortAttributeName) == false) {
+					ExceptionMessage += "the object to sort provided does not have an attribute "+SortAttributeName+"; ";
+					Valid = false;
+				}else{
+					// Sort attribute has a value
+					if(ObjectToChange.getMember(context, SortAttributeName).getValue(context) == null) {
+						ExceptionMessage += "the object to sort provided does not already have a value for its sorting attribute; ";
+						Valid = false;
+					}else{
+						// Sort attribute is of type integer
+						//if(ObjectToChange.getMember(context, SortAttributeName).getValue(context).getClass() != java.lang.Integer.class) {
+						if(ObjectToChange.getMetaObject().getMetaPrimitive(SortAttributeName).getType() != PrimitiveType.Integer) {
+							ExceptionMessage += "the attribute specified, "+SortAttributeName+", is not an integer; ";
+							Valid = false;
+						}
+					}
+				}
+				// Affected list has at least 2 objects
+				if(AffectedList.size() < 2) { 
+					ExceptionMessage += "there are not enough objects in the provided list to provide a sorting operation; ";
+					Valid = false;
+				}else {
+
+					if(Sorting.getObjectFromList(ObjectToChange,AffectedList) == null){
+						ExceptionMessage += "the provided list does not contain the object to apply changes to; ";
+						Valid = false;
+					}
+					
+					List<IMendixObject> ValidList = new ArrayList<IMendixObject>(AffectedList); // duplicate the input list
+					// Assume all objects are valid. Then, remove any which do not have the specified attribute or that do but the attribute is not an integer
+					ValidList.removeIf(o -> (o.hasMember(SortAttributeName) == false) || o.getMetaObject().getMetaPrimitive(SortAttributeName).getType() != PrimitiveType.Integer || o.getValue(context, SortAttributeName) == null); // remove any objects which have the sort attribute or 
+					if(ValidList.size() != AffectedList.size()) { //if not all objects are valid
+						ExceptionMessage += "the provided list contains at least 1 object which does not have an attribute "+SortAttributeName+"; where this attribute is not an integer or where the attribute currently has an empty value; ";
+						Valid = false;
+					}
+				}
+				if(Index == null) {
+					ExceptionMessage += "no index is provided; ";
+					Valid = false;
+				}else {
+					if(Index < 1 || Index > AffectedList.size()) {
+						ExceptionMessage += "the provided index lies outside the size of the provided list; ";
+						Valid = false;
+					}
+				}
+			}
+		}
+		
+		ValidationFeedback ValidationFeedback = new ValidationFeedback();
+		ValidationFeedback.ValidationMessage = ExceptionMessage;
+		ValidationFeedback.Valid = Valid;
+		
+		return ValidationFeedback;
 	}
 }

@@ -14,14 +14,12 @@ import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.webui.CustomJavaAction;
-import objectlistoperations.impl.Sorting_V1;
-import objectlistoperations.impl.SortingValidation_V1;
-import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
+import objectlistoperations.impl.Sorting;
+import objectlistoperations.impl.SortingValidation;
+import objectlistoperations.impl.SortingValidation.ValidationFeedback;
 
 /**
  * This Java action takes an object and a list (which the object is also part of) and changes that object's position in the list to the specified index of the list, based on a specific 'sorting' attribute being used to sort the list.
- * 
- * Deprecated. Please use JA_List_MoveObjectToIndex instead
  */
 public class JA_MoveToIndex extends CustomJavaAction<java.lang.Void>
 {
@@ -74,10 +72,10 @@ public class JA_MoveToIndex extends CustomJavaAction<java.lang.Void>
 		AffectedList.sort(compareBySortOrder);
 		//Immediately perform this sort in case the list was not provided in the same order as this sort order would provide
 				
-		ValidationFeedback Valid = SortingValidation_V1.performIndexValidation(AffectedList, ObjectToChange, context, SortAttributeName, NewIndex, Commit);
+		ValidationFeedback Valid = SortingValidation.performIndexValidation(AffectedList, ObjectToChange, context, SortAttributeName, NewIndex, Commit);
 		
 		if(Valid.Valid == true) {
-			Sorting_V1.moveToIndex(AffectedList, ObjectToChange, context, SortAttributeName, NewIndex, Commit);		
+			Sorting.moveToIndex(AffectedList, ObjectToChange, context, SortAttributeName, NewIndex, Commit);		
 		}else{
 			throw new Exception(Valid.ValidationMessage);
 		}
