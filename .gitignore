@@ -18,6 +18,7 @@
 /.idea/
 /.svn/
 /._.DS_Store
+/*.iml
 
 
 # Ignore Gradle project-specific cache directory
