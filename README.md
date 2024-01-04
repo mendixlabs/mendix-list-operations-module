@@ -7,7 +7,7 @@
 
 Enhance and streamline list manipulation within your Mendix applications with the Mendix List Operations module. This module provides a suite of Java actions designed to handle sorting, filtering, and modifying lists with ease and efficiency.
 
-![screenshot](assets/ListOperations index.png)
+![screenshot](assets/ListOperationsIndex.png)
 
 ## Java Actions
 
