@@ -50,9 +50,20 @@ Please take these differences into consideration when updating your actions to a
 
 ## Examples and Testing
 
+Link with deployed examples project (free node - could be availability issues):
+[link placeholder]
+
 You can use this repository to run included project. It contains additional modules that can help to understand functionality better.
 
 Testing of this module can be done via the "Examples" pages or "Unit tests" page. There are buttons in the header that can be used to add or remove sample data from your database.
+
+## Mendix versions successfully tested on
+
+- 8.18.1
+- 8.18.27
+- 9.24.1
+- 9.24.13
+- 10.6.0
 
 ## Dependencies
 
