@@ -11,6 +11,7 @@
 /project-settings.user.json
 /javasource/*/proxies/
 /javasource/system/
+/javasource/.idea/
 /**/node_modules/
 !/javascriptsource/**/node_modules/
 /nativemobile/builds/
@@ -18,6 +19,7 @@
 /.idea/
 /.svn/
 /._.DS_Store
+/*.iml
 
 
 # Ignore Gradle project-specific cache directory

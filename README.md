@@ -7,7 +7,7 @@
 
 Enhance and streamline list manipulation within your Mendix applications with the Mendix List Operations module. This module provides a suite of Java actions designed to handle sorting, filtering, and modifying lists with ease and efficiency.
 
-![screenshot](/assets/ListOperationsScreenshot1.png)
+![screenshot](assets/ListOperationsIndex.png)
 
 ## Java Actions
 
@@ -35,7 +35,35 @@ Enhance and streamline list manipulation within your Mendix applications with th
 
 ## How to Update Deprecated Java Actions
 
-If you're transitioning from older versions of the actions, please see our guide on manually updating to the newer versions, ensuring a smooth transition.
+If you're transitioning from older sorting Java actions that are now deprecated to the updated ones, please note that this process requires manual intervention for each use case. Here's a guide to help you through the update:
+
+Identify Deprecated Actions: First, identify all instances where deprecated sorting Java actions are used within your Mendix projects.
+
+1. Understand the Changes: Familiarize yourself with the updates. Notably, a new "Starting index" parameter has been added to the Sanitize sorting action. Additionally, all updated sorting Java actions now return a list of changed objects, which is a change from the previous behavior.
+2. Plan the Update: Before making changes, plan how you'll integrate the new parameters and handle the returned list of changed objects. Consider how these changes will impact your current workflow and data handling.
+3. Manual Replacement: Replace each instance of the deprecated action with the updated action manually. Ensure that you:
+4. Adjust for the new "Starting index" parameter in the Sanitize sorting action.
+   Modify your microflows or logic to handle the list of changed objects returned by the sorting actions.
+5. Testing: After updating the actions, thoroughly test your application to ensure that the new actions are functioning as expected and that your application still behaves correctly.
+
+Please take these differences into consideration when updating your actions to a newer version. This careful approach will help minimize disruption and ensure a smooth transition to the enhanced functionalities of the updated Java actions.
+
+## Examples and Testing
+
+Link with deployed examples project (free node - could be availability issues):
+[link placeholder]
+
+You can use this repository to run included project. It contains additional modules that can help to understand functionality better.
+
+Testing of this module can be done via the "Examples" pages or "Unit tests" page. There are buttons in the header that can be used to add or remove sample data from your database.
+
+## Mendix versions successfully tested on
+
+- 8.18.1
+- 8.18.27
+- 9.24.1
+- 9.24.13
+- 10.6.0
 
 ## Dependencies
 
