@@ -59,6 +59,7 @@ public class JA_List_SanitizeSorting extends CustomJavaAction<java.util.List<IMe
 
 	/**
 	 * Returns a string representation of this action
+	 * @return a string representation of this action
 	 */
 	@java.lang.Override
 	public java.lang.String toString()
