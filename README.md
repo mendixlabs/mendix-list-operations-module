@@ -1,5 +1,5 @@
 [![Support](https://img.shields.io/badge/Support-Community%20(no%20active%20support)-orange.svg)](https://docs.mendix.com/appstore/overview/#432-community-supplied-content)
-[![Studio](https://img.shields.io/badge/Studio%20version-8.18.1%2B-blue.svg)](https://marketplace.mendix.com/link/studiopro/)
+[![Studio](https://img.shields.io/badge/Studio%20version-9.18.0%2B-blue.svg)](https://marketplace.mendix.com/link/studiopro/)
 ![GitHub release](https://img.shields.io/github/release/mendixlabs/mendix-list-operations-module)
 ![GitHub issues](https://img.shields.io/github/issues/mendixlabs/mendix-list-operations-module)
 
