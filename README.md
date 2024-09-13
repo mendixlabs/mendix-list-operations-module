@@ -60,8 +60,8 @@ Testing of this module can be done via the "Examples" pages or "Unit tests" page
 
 ## Mendix versions successfully tested on
 
-- 8.18.1 (V 2.x)
-- 8.18.27 (V 2.x)
+- 8.18.1 (V. 2.x)
+- 8.18.27 (V. 2.x)
 - 9.18.0
 - 9.24.1
 - 9.24.13
