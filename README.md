@@ -25,6 +25,7 @@ Enhance and streamline list manipulation within your Mendix applications with th
 ### List Manipulation Actions
 
 - **JA_List_FlatListAssociations** - Flattens hierarchical associations into a single list.
+- **JA_List_GetIndexOfObject** - Returns an index of specified object in the list.
 - **JA_List_GetObjectByIndex** - Retrieves an object from the list based on its index.
 - **JA_List_GetRandomObject** - Randomly selects an object from the list.
 - **JA_List_InsertObjectAtIndex** - Inserts an object at a specified index within the list.
