@@ -17,26 +17,31 @@ import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.systemwideinterfaces.core.IMendixObjectMember;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Misc;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action filters provided list by attributes that were changed and those attributes were specified in "Changed Members To Filter By" parameter. 
  * Commits it if requested through "Commit" parameter.
  * Returns a new filtered list.
  */
-public class JA_List_FilterIfAttributeHasChanged extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_FilterIfAttributeHasChanged extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.String ChangedMembersToFilterBy;
-	private java.lang.Boolean Commit;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.String ChangedMembersToFilterBy;
+	private final java.lang.Boolean Commit;
 
-	public JA_List_FilterIfAttributeHasChanged(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.String ChangedMembersToFilterBy, java.lang.Boolean Commit)
+	public JA_List_FilterIfAttributeHasChanged(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.String _changedMembersToFilterBy,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.ChangedMembersToFilterBy = ChangedMembersToFilterBy;
-		this.Commit = Commit;
+		this.ProvidedList = _providedList;
+		this.ChangedMembersToFilterBy = _changedMembersToFilterBy;
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

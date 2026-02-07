@@ -12,32 +12,39 @@ package objectlistoperations.actions;
 import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Sorting;
 import objectlistoperations.impl.SortingValidation;
 import objectlistoperations.impl.SortingValidation.ValidationFeedback;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action takes an object and a list (which the object is also part of) and changes that object's sort order attribute in the list to the specified number.
  * Commits changed objects if "Commit" parameter set to "true".
  * Returns changed objects if any in a new list otherwise returns empty list.
  */
-public class JA_List_MoveObjectToPosition extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_MoveObjectToPosition extends UserAction<java.util.List<IMendixObject>>
 {
-	private IMendixObject ObjectToChange;
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.String SortAttributeName;
-	private java.lang.Long NewPosition;
-	private java.lang.Boolean Commit;
+	private final IMendixObject ObjectToChange;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.String SortAttributeName;
+	private final java.lang.Long NewPosition;
+	private final java.lang.Boolean Commit;
 
-	public JA_List_MoveObjectToPosition(IContext context, IMendixObject ObjectToChange, java.util.List<IMendixObject> ProvidedList, java.lang.String SortAttributeName, java.lang.Long NewPosition, java.lang.Boolean Commit)
+	public JA_List_MoveObjectToPosition(
+		IContext context,
+		IMendixObject _objectToChange,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.String _sortAttributeName,
+		java.lang.Long _newPosition,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ObjectToChange = ObjectToChange;
-		this.ProvidedList = ProvidedList;
-		this.SortAttributeName = SortAttributeName;
-		this.NewPosition = NewPosition;
-		this.Commit = Commit;
+		this.ObjectToChange = _objectToChange;
+		this.ProvidedList = _providedList;
+		this.SortAttributeName = _sortAttributeName;
+		this.NewPosition = _newPosition;
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

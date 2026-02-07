@@ -13,33 +13,40 @@ import java.util.Comparator;
 import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Sorting_V1;
 import objectlistoperations.impl.SortingValidation_V1;
 import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
 import objectlistoperations.proxies.Enum_SortingAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action takes an object and a list (which the object is also part of) and changes that object's position in the list, based on a specific 'sorting' attribute being used to sort the list.
  * 
  * Deprecated. Please use JA_List_PerformSortingAction instead
  */
-public class JA_PerformSortingAction extends CustomJavaAction<java.lang.Void>
+public class JA_PerformSortingAction extends UserAction<java.lang.Void>
 {
-	private IMendixObject ObjectToChange;
-	private java.util.List<IMendixObject> AffectedList;
-	private java.lang.String SortAttributeName;
-	private objectlistoperations.proxies.Enum_SortingAction Action;
-	private java.lang.Boolean Commit;
+	private final IMendixObject ObjectToChange;
+	private final java.util.List<IMendixObject> AffectedList;
+	private final java.lang.String SortAttributeName;
+	private final objectlistoperations.proxies.Enum_SortingAction Action;
+	private final java.lang.Boolean Commit;
 
-	public JA_PerformSortingAction(IContext context, IMendixObject ObjectToChange, java.util.List<IMendixObject> AffectedList, java.lang.String SortAttributeName, java.lang.String Action, java.lang.Boolean Commit)
+	public JA_PerformSortingAction(
+		IContext context,
+		IMendixObject _objectToChange,
+		java.util.List<IMendixObject> _affectedList,
+		java.lang.String _sortAttributeName,
+		java.lang.String _action,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ObjectToChange = ObjectToChange;
-		this.AffectedList = AffectedList;
-		this.SortAttributeName = SortAttributeName;
-		this.Action = Action == null ? null : objectlistoperations.proxies.Enum_SortingAction.valueOf(Action);
-		this.Commit = Commit;
+		this.ObjectToChange = _objectToChange;
+		this.AffectedList = _affectedList;
+		this.SortAttributeName = _sortAttributeName;
+		this.Action = _action == null ? null : objectlistoperations.proxies.Enum_SortingAction.valueOf(_action);
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

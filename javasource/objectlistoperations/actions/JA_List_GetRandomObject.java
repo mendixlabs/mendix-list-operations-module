@@ -12,21 +12,24 @@ package objectlistoperations.actions;
 import java.util.Random;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This java action returns an object randomly picked from the Provided list of objects.
  * Returns empty object if the list is empty
  * Uses java.util.Random class to randomize
  */
-public class JA_List_GetRandomObject extends CustomJavaAction<IMendixObject>
+public class JA_List_GetRandomObject extends UserAction<IMendixObject>
 {
-	private java.util.List<IMendixObject> ProvidedList;
+	private final java.util.List<IMendixObject> ProvidedList;
 
-	public JA_List_GetRandomObject(IContext context, java.util.List<IMendixObject> ProvidedList)
+	public JA_List_GetRandomObject(
+		IContext context,
+		java.util.List<IMendixObject> _providedList
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
+		this.ProvidedList = _providedList;
 	}
 
 	@java.lang.Override

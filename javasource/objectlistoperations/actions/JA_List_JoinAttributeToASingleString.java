@@ -13,28 +13,34 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Misc;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action takes list ("Provided List" parameter), gets a value of specified attribute (name of this attribute should be provided in "Attribute Name" parameter) of each list member and compiles a single string containing all gathered values. Each value in the string optionally can be separated with specified separator string (use "Separator" parameter to specify string that will be put between values in the string outcome). Additionally, before joining, each value can be enclosed with a string ("Wrap values with" parameter).
  * Returns new string.
  */
-public class JA_List_JoinAttributeToASingleString extends CustomJavaAction<java.lang.String>
+public class JA_List_JoinAttributeToASingleString extends UserAction<java.lang.String>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.String AttributeName;
-	private java.lang.String Separator;
-	private java.lang.String WrapValuesWith;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.String AttributeName;
+	private final java.lang.String Separator;
+	private final java.lang.String WrapValuesWith;
 
-	public JA_List_JoinAttributeToASingleString(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.String AttributeName, java.lang.String Separator, java.lang.String WrapValuesWith)
+	public JA_List_JoinAttributeToASingleString(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.String _attributeName,
+		java.lang.String _separator,
+		java.lang.String _wrapValuesWith
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.AttributeName = AttributeName;
-		this.Separator = Separator;
-		this.WrapValuesWith = WrapValuesWith;
+		this.ProvidedList = _providedList;
+		this.AttributeName = _attributeName;
+		this.Separator = _separator;
+		this.WrapValuesWith = _wrapValuesWith;
 	}
 
 	@java.lang.Override
