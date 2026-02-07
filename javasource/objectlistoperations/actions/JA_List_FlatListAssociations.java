@@ -15,8 +15,8 @@ import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.systemwideinterfaces.core.meta.IMetaAssociation;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Misc;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * 1. Get a list of objects Provided list).
@@ -27,18 +27,23 @@ import objectlistoperations.impl.Misc;
  * 
  * Returns empty list of associated entity if provided list was empty
  */
-public class JA_List_FlatListAssociations extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_FlatListAssociations extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.String ReturnedAssociatedEntity;
-	private java.lang.String AssociationName;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.String ReturnedAssociatedEntity;
+	private final java.lang.String AssociationName;
 
-	public JA_List_FlatListAssociations(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.String ReturnedAssociatedEntity, java.lang.String AssociationName)
+	public JA_List_FlatListAssociations(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.String _returnedAssociatedEntity,
+		java.lang.String _associationName
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.ReturnedAssociatedEntity = ReturnedAssociatedEntity;
-		this.AssociationName = AssociationName;
+		this.ProvidedList = _providedList;
+		this.ReturnedAssociatedEntity = _returnedAssociatedEntity;
+		this.AssociationName = _associationName;
 	}
 
 	@java.lang.Override

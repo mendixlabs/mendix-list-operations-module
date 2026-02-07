@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action filters provided list using "isChanged" method on objects from Provided list.
@@ -22,16 +22,20 @@ import com.mendix.webui.CustomJavaAction;
  * Commits it if requested through "Commit" parameter.
  * Returns a new filtered list.
  */
-public class JA_List_FilterChanged extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_FilterChanged extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.Boolean Commit;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.Boolean Commit;
 
-	public JA_List_FilterChanged(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.Boolean Commit)
+	public JA_List_FilterChanged(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.Commit = Commit;
+		this.ProvidedList = _providedList;
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

@@ -12,10 +12,10 @@ package objectlistoperations.actions;
 import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Sorting;
 import objectlistoperations.impl.SortingValidation;
 import objectlistoperations.impl.SortingValidation.ValidationFeedback;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This java action takes a list of objects and 'santizes' their data for sorting. All logic is applied to the input attribute. which should be used to determine the sorting order.
@@ -24,20 +24,26 @@ import objectlistoperations.impl.SortingValidation.ValidationFeedback;
  * Commits changed objects if "Commit" parameter set to "true".
  * Returns changed objects if any in a new list otherwise returns empty list.
  */
-public class JA_List_SanitizeSorting extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_SanitizeSorting extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.String SortAttributeName;
-	private java.lang.Boolean Commit;
-	private java.lang.Long StartingIndex;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.String SortAttributeName;
+	private final java.lang.Boolean Commit;
+	private final java.lang.Long StartingIndex;
 
-	public JA_List_SanitizeSorting(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.String SortAttributeName, java.lang.Boolean Commit, java.lang.Long StartingIndex)
+	public JA_List_SanitizeSorting(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.String _sortAttributeName,
+		java.lang.Boolean _commit,
+		java.lang.Long _startingIndex
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.SortAttributeName = SortAttributeName;
-		this.Commit = Commit;
-		this.StartingIndex = StartingIndex;
+		this.ProvidedList = _providedList;
+		this.SortAttributeName = _sortAttributeName;
+		this.Commit = _commit;
+		this.StartingIndex = _startingIndex;
 	}
 
 	@java.lang.Override

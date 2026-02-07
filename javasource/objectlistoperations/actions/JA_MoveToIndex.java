@@ -13,32 +13,39 @@ import java.util.Comparator;
 import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Sorting_V1;
 import objectlistoperations.impl.SortingValidation_V1;
 import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This Java action takes an object and a list (which the object is also part of) and changes that object's position in the list to the specified index of the list, based on a specific 'sorting' attribute being used to sort the list.
  * 
  * Deprecated. Please use JA_List_MoveObjectToIndex instead
  */
-public class JA_MoveToIndex extends CustomJavaAction<java.lang.Void>
+public class JA_MoveToIndex extends UserAction<java.lang.Void>
 {
-	private IMendixObject ObjectToChange;
-	private java.util.List<IMendixObject> AffectedList;
-	private java.lang.String SortAttributeName;
-	private java.lang.Long NewIndex;
-	private java.lang.Boolean Commit;
+	private final IMendixObject ObjectToChange;
+	private final java.util.List<IMendixObject> AffectedList;
+	private final java.lang.String SortAttributeName;
+	private final java.lang.Long NewIndex;
+	private final java.lang.Boolean Commit;
 
-	public JA_MoveToIndex(IContext context, IMendixObject ObjectToChange, java.util.List<IMendixObject> AffectedList, java.lang.String SortAttributeName, java.lang.Long NewIndex, java.lang.Boolean Commit)
+	public JA_MoveToIndex(
+		IContext context,
+		IMendixObject _objectToChange,
+		java.util.List<IMendixObject> _affectedList,
+		java.lang.String _sortAttributeName,
+		java.lang.Long _newIndex,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ObjectToChange = ObjectToChange;
-		this.AffectedList = AffectedList;
-		this.SortAttributeName = SortAttributeName;
-		this.NewIndex = NewIndex;
-		this.Commit = Commit;
+		this.ObjectToChange = _objectToChange;
+		this.AffectedList = _affectedList;
+		this.SortAttributeName = _sortAttributeName;
+		this.NewIndex = _newIndex;
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

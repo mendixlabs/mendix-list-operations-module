@@ -11,7 +11,7 @@ package objectlistoperations.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This java action returns an object by its position in Provided list.
@@ -23,16 +23,20 @@ import com.mendix.webui.CustomJavaAction;
  * Returns empty object if the list is empty
  * Returns empty object if index surpasses size of the list
  */
-public class JA_List_GetObjectByIndex extends CustomJavaAction<IMendixObject>
+public class JA_List_GetObjectByIndex extends UserAction<IMendixObject>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private java.lang.Long ObjectIndex;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final java.lang.Long ObjectIndex;
 
-	public JA_List_GetObjectByIndex(IContext context, java.util.List<IMendixObject> ProvidedList, java.lang.Long ObjectIndex)
+	public JA_List_GetObjectByIndex(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		java.lang.Long _objectIndex
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.ObjectIndex = ObjectIndex;
+		this.ProvidedList = _providedList;
+		this.ObjectIndex = _objectIndex;
 	}
 
 	@java.lang.Override

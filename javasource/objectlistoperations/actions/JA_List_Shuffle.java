@@ -13,21 +13,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This java action takes a list of objects and randomly changes positions of all elements inside.
  * Element can have the same position after shuffling.
  * Returns new shuffled list.
  */
-public class JA_List_Shuffle extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_Shuffle extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
+	private final java.util.List<IMendixObject> ProvidedList;
 
-	public JA_List_Shuffle(IContext context, java.util.List<IMendixObject> ProvidedList)
+	public JA_List_Shuffle(
+		IContext context,
+		java.util.List<IMendixObject> _providedList
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
+		this.ProvidedList = _providedList;
 	}
 
 	@java.lang.Override

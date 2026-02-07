@@ -12,10 +12,10 @@ package objectlistoperations.actions;
 import java.util.List;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
 import objectlistoperations.impl.Sorting_V1;
 import objectlistoperations.impl.SortingValidation_V1;
 import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * This java action takes a list of objects and 'santizes' their data for sorting. All logic is applied to the input attribute. which should be used to determine the sorting order.
@@ -24,18 +24,23 @@ import objectlistoperations.impl.SortingValidation_V1.ValidationFeedback;
  * 
  * Deprecated. Please use JA_List_SanitizeSorting instead
  */
-public class JA_SanitizeList extends CustomJavaAction<java.lang.Void>
+public class JA_SanitizeList extends UserAction<java.lang.Void>
 {
-	private java.util.List<IMendixObject> ListToSanitize;
-	private java.lang.String SortAttributeName;
-	private java.lang.Boolean Commit;
+	private final java.util.List<IMendixObject> ListToSanitize;
+	private final java.lang.String SortAttributeName;
+	private final java.lang.Boolean Commit;
 
-	public JA_SanitizeList(IContext context, java.util.List<IMendixObject> ListToSanitize, java.lang.String SortAttributeName, java.lang.Boolean Commit)
+	public JA_SanitizeList(
+		IContext context,
+		java.util.List<IMendixObject> _listToSanitize,
+		java.lang.String _sortAttributeName,
+		java.lang.Boolean _commit
+	)
 	{
 		super(context);
-		this.ListToSanitize = ListToSanitize;
-		this.SortAttributeName = SortAttributeName;
-		this.Commit = Commit;
+		this.ListToSanitize = _listToSanitize;
+		this.SortAttributeName = _sortAttributeName;
+		this.Commit = _commit;
 	}
 
 	@java.lang.Override

@@ -11,26 +11,30 @@ package objectlistoperations.actions;
 
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
- * This java action returns an integer.Specifically, a position number (index) of object in the list. It uses object internal id to find first object in the list containing same id. In case there are multiple same objects, it will return the first one.
+ * This java action returns an integer. It uses Java "indexOf" method.
  * 
  * First object in the list is positions at index "0".
  * If there is no object in the list, it will return "-1".
  * If list is empty, it will return "-1".
  * If object is "Empty", it will throw an error.
  */
-public class JA_List_GetIndexOfObject extends CustomJavaAction<java.lang.Long>
+public class JA_List_GetIndexOfObject extends UserAction<java.lang.Long>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private IMendixObject ObjectToLookFor;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final IMendixObject ObjectToLookFor;
 
-	public JA_List_GetIndexOfObject(IContext context, java.util.List<IMendixObject> ProvidedList, IMendixObject ObjectToLookFor)
+	public JA_List_GetIndexOfObject(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		IMendixObject _objectToLookFor
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.ObjectToLookFor = ObjectToLookFor;
+		this.ProvidedList = _providedList;
+		this.ObjectToLookFor = _objectToLookFor;
 	}
 
 	@java.lang.Override

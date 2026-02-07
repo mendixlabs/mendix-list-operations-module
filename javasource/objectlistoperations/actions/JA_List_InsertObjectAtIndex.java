@@ -12,7 +12,7 @@ package objectlistoperations.actions;
 import java.util.ArrayList;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
-import com.mendix.webui.CustomJavaAction;
+import com.mendix.systemwideinterfaces.core.UserAction;
 
 /**
  * Returns new list of objects containing objects from the provided list + object specified separately.
@@ -24,18 +24,23 @@ import com.mendix.webui.CustomJavaAction;
  * Object index with value "-2" will put specified object to the position right before very last position in the list, etc.
  * If Object index boundaries surpass list size the error won't be given. Instead specified object will be put to the very beginning of the list if the index is negative and too low. Or specified object will be put to the very end of the list if the index is positive and surpasses Provided list size.
  */
-public class JA_List_InsertObjectAtIndex extends CustomJavaAction<java.util.List<IMendixObject>>
+public class JA_List_InsertObjectAtIndex extends UserAction<java.util.List<IMendixObject>>
 {
-	private java.util.List<IMendixObject> ProvidedList;
-	private IMendixObject ObjectToInsertInList;
-	private java.lang.Long ObjectIndex;
+	private final java.util.List<IMendixObject> ProvidedList;
+	private final IMendixObject ObjectToInsertInList;
+	private final java.lang.Long ObjectIndex;
 
-	public JA_List_InsertObjectAtIndex(IContext context, java.util.List<IMendixObject> ProvidedList, IMendixObject ObjectToInsertInList, java.lang.Long ObjectIndex)
+	public JA_List_InsertObjectAtIndex(
+		IContext context,
+		java.util.List<IMendixObject> _providedList,
+		IMendixObject _objectToInsertInList,
+		java.lang.Long _objectIndex
+	)
 	{
 		super(context);
-		this.ProvidedList = ProvidedList;
-		this.ObjectToInsertInList = ObjectToInsertInList;
-		this.ObjectIndex = ObjectIndex;
+		this.ProvidedList = _providedList;
+		this.ObjectToInsertInList = _objectToInsertInList;
+		this.ObjectIndex = _objectIndex;
 	}
 
 	@java.lang.Override
