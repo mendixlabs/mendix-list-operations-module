@@ -61,8 +61,10 @@ Testing of this module can be done via the "Examples" pages or "Unit tests" page
 - 9.24.1
 - 9.24.13
 - 10.6.0
-- 10.24.9
 - 10.7.0
+- 10.24.9 (V. 4.0.0)
+- 11.8.0 (V. 4.0.0)
+- 11.9.0 (V. 4.1.0)
 
 ## Dependencies
 

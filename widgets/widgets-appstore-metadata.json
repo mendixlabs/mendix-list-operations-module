@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "widgets": [
+    {
+      "sha-256": "1bd7d0949d5679af0d010d82786f16c87f812d571e28d98c2a2ee1bc25b9bf44",
+      "name": "Badge",
+      "version": "3.2.2",
+      "appStoreVersionGuid": "ef7431b8-011a-4087-90dc-f595aa42736c"
+    },
+    {
+      "sha-256": "dd3ddd48985b4e1138dc283a17a007b3e88ffe11d1fcdc265ae472739e620900",
+      "name": "Charts",
+      "version": "6.2.3",
+      "appStoreVersionGuid": "ab07f1ae-0d2f-4d9b-b193-cdfd459dc946"
+    },
+    {
+      "sha-256": "6019507516465a3e81c1761e827086aa75260cd4d1458db7ed5569743a4674ed",
+      "name": "Accordion",
+      "version": "2.3.4",
+      "appStoreVersionGuid": "7a073064-ef62-4115-bc2e-c5abdd40eb30"
+    },
+    {
+      "sha-256": "9818ee6c9c6064883749f721dffbbf31c1d88021ec8552d5017912bbf361c64b",
+      "name": "Combobox",
+      "version": "2.6.2",
+      "appStoreVersionGuid": "acfc1935-5b3b-4d4b-9370-a09635e7becd"
+    },
+    {
+      "sha-256": "68344f56b25d45f9b8db15ea5f1de6fa74323c0011df11e3f27cec10ab5226d2",
+      "name": "Image",
+      "version": "1.4.3",
+      "appStoreVersionGuid": "1321ab1b-0826-4ebc-b041-bc5053b3d3f0"
+    },
+    {
+      "sha-256": "96760f24936d66a91c3082de250fd9ea80b6f7d82aaebc12ce3a3127bde16113",
+      "name": "Maps",
+      "version": "4.1.0",
+      "appStoreVersionGuid": "51aa9f63-d7bb-4a35-8cf3-c4d707e2fece"
+    },
+    {
+      "sha-256": "d4a3c77d9c92c768c85b5c7caf7e8397be77d8f1198e98ee17a0ff3aac92ad0a",
+      "name": "Progress Bar",
+      "version": "3.2.2",
+      "appStoreVersionGuid": "22c36bac-ca5f-4953-9ea6-e83532fd2db4"
+    },
+    {
+      "sha-256": "2321c2e96e66fd994360d890d4fb1bbea96b2b30c22b0d0863d4b62e96a07bba",
+      "name": "ProgressCircle",
+      "version": "3.3.2",
+      "appStoreVersionGuid": "1269e609-41ef-4393-8ad3-82e154b6e3ad"
+    },
+    {
+      "sha-256": "e460448dd4553d0588532f14fb1852cd725f85a0c8c3b93688f6e4992ebf9ad5",
+      "name": "StarRating",
+      "version": "3.2.1",
+      "appStoreVersionGuid": "6faef7e5-c0ab-482a-8a54-9f56571e1e6a"
+    },
+    {
+      "sha-256": "abb866880cea3549a0a5751627058b58ddecce6f2ebaff39a70a868374a156f2",
+      "name": "Switch",
+      "version": "4.3.0",
+      "appStoreVersionGuid": "d39541e5-eeac-4b35-ad61-8aa4bf85141d"
+    }
+  ]
+}
