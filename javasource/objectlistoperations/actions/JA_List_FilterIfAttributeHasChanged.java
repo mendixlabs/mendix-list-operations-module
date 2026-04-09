@@ -102,10 +102,32 @@ public class JA_List_FilterIfAttributeHasChanged extends UserAction<java.util.Li
 	 * @return A Predicate that filters IMendixObjects based on the specified criteria.
 	 */
 	private static Predicate<IMendixObject> filterByMemberChange(IContext context, String[] membersSplitted) {
-	    return obj -> Arrays.stream(membersSplitted)
-	                        .map(String::trim)
-	                        .map(memberName -> obj.getMember(context, memberName).getState())
-	                        .anyMatch(state -> state == IMendixObjectMember.MemberState.CHANGED);
+	    return obj -> {
+	        if (obj == null || membersSplitted == null) {
+	            return false;
+	        }
+
+	        for (String memberName : membersSplitted) {
+	            if (memberName == null) {
+	                continue;
+	            }
+
+	            String trimmed = memberName.trim();
+	            if (trimmed.isEmpty()) {
+	                continue;
+	            }
+
+	            if (!obj.hasMember(trimmed)) {
+	                continue;
+	            }
+
+	            if (obj.getMember(trimmed).isChanged()) {
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    };
 	}
 	// END EXTRA CODE
 }

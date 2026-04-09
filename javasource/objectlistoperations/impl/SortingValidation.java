@@ -20,7 +20,7 @@ public final class SortingValidation {
     }
 
     private static boolean isSortAttributeNameValid(IMendixObject mxObject, String sortAttributeName, IContext context) {
-    	if (!mxObject.hasMember(sortAttributeName) || mxObject.getMember(context, sortAttributeName).getValue(context) == null) {
+    	if (!mxObject.hasMember(sortAttributeName) || mxObject.getMember(sortAttributeName).getValue(context) == null) {
     		return false;
     	}
     	PrimitiveType primitiveType = mxObject.getMetaObject().getMetaPrimitive(sortAttributeName).getType();

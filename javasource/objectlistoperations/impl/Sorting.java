@@ -152,8 +152,17 @@ public final class Sorting {
 	    // Find the object in the list and its current index.
 	    IMendixObject objectToChangeList = getObjectFromList(objectToChangeSingle, sortedList);
 	    IMendixObject objectForcedToMove= findObjectByAttributeValue(sortAttributeName, newPosition, sortedList, context, primitiveType);
+	    
+	    if (objectToChangeList == null || objectForcedToMove == null) {
+	        throw new IllegalArgumentException("Object to move or target position object not found in list.");
+	    }
+
 	    int oldIndex = sortedList.indexOf(objectToChangeList);
 	    int newIndex = sortedList.indexOf(objectForcedToMove);
+
+	    if (oldIndex < 0 || newIndex < 0) {
+	        throw new IllegalStateException("Calculated index is invalid.");
+	    }
 
 	    // No operation needed if the old and new indexes are the same.
 	    if (oldIndex == newIndex) {
