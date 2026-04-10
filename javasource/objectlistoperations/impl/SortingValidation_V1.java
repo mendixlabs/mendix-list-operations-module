@@ -48,7 +48,7 @@ public final class SortingValidation_V1 {
 					Valid = false;
 				}else{
 					// Sort attribute has a value
-					if(ObjectToChange.getMember(context, SortAttributeName).getValue(context) == null) {
+					if(ObjectToChange.getMember(SortAttributeName).getValue(context) == null) {
 						ExceptionMessage += "the object to sort provided does not already have a value for its sorting attribute; ";
 						Valid = false;
 					}else{
@@ -142,7 +142,7 @@ public final class SortingValidation_V1 {
 					Valid = false;
 				}else{
 					// Sort attribute has a value
-					if(ObjectToChange.getMember(context, SortAttributeName).getValue(context) == null) {
+					if(ObjectToChange.getMember(SortAttributeName).getValue(context) == null) {
 						ExceptionMessage += "the object to sort provided does not already have a value for its sorting attribute; ";
 						Valid = false;
 					}else{
