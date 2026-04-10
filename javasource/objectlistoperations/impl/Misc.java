@@ -51,11 +51,17 @@ public final class Misc {
 	 * @return A comparator that compares two IMendixObjects based on the long value of the specified attribute.
 	 */
 	public static Comparator<IMendixObject> compareBySortOrder(IContext context, String sortAttributeName) {
-	    return Comparator.comparing((IMendixObject o) -> {
-	        Object value = o.getValue(context, sortAttributeName);
-	        // Assuming the sort attribute is either Long or can be defaulted to 0 if null.
-	        return (value instanceof Long) ? (Long) value : (Integer) value;
-	    });
+		return Comparator.comparing((IMendixObject o) -> {
+		    Object value = o.getValue(context, sortAttributeName);
+
+		    if (value instanceof Long) {
+		        return (Long) value;
+		    } else if (value instanceof Integer) {
+		        return ((Integer) value).longValue();
+		    } else {
+		        return 0L; // or handle null/unexpected types explicitly
+		    }
+		});
 	}
 
 	/**
